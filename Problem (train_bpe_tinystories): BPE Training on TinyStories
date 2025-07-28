@@ -119,7 +119,7 @@ def process_chunk(args):
 if __name__ == "__main__":
     multiprocessing.freeze_support() 
     file_path = "tests/fixtures/tinystories_sample_5M.txt"
-    num_processes = cpu_count()
+    num_processes = min(8, cpu_count())
 
     with open(file_path, "rb") as f:
         t1 = time.time()
@@ -150,5 +150,8 @@ if __name__ == "__main__":
         token_freqs = merge_pairs(best_pair, token_freqs)
     print(f"[Part 5] Merging took {time.time() - t3:.2f}s")
 
+    # longest_token = max(token_freqs, key=lambda x: len(x))
+    # print("Longest token:", b''.join(longest_token).decode("utf-8", errors="ignore"))
+    # print("Length:", len(longest_token))
     # print("token_freqs",token_freqs)
     # print("Final merges:", merges,len(merges))
